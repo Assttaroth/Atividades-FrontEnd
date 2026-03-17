@@ -1,622 +1,261 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="description" content="Curiosidades e fatos históricos da Ciência da Computação">
-    <meta name="author" content="Portal Computação">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquivo Confuso da Computação</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tecnologias Web</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+body{
+min-height:100vh;
+background: linear-gradient(-45deg,#ffffff,#e6f0ff,#dbeafe,#ffffff);
+background-size:400% 400%;
+animation: gradient 12s ease infinite;
+font-family: 'Segoe UI', sans-serif;
+color:#1e293b;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.navbar{
+background: rgba(255,255,255,0.9);
+backdrop-filter: blur(10px);
+border-bottom:1px solid #cbd5e1;
+}
+
+.titulo{
+text-align:center;
+margin-top:70px;
+margin-bottom:50px;
+font-size:3rem;
+font-weight:700;
+color:#1d4ed8;
+}
+
+.card-tech{
+background: rgba(255,255,255,0.95);
+border:1px solid #cbd5e1;
+border-radius:20px;
+backdrop-filter: blur(12px);
+padding:30px;
+transition:0.35s;
+text-align:center;
+height:100%;
+}
+
+.card-tech:hover{
+transform: translateY(-12px) scale(1.04);
+box-shadow:0 25px 50px rgba(37,99,235,0.25);
+border:1px solid #2563eb;
+}
+
+.icon-tech{
+font-size:3rem;
+margin-bottom:15px;
+color:#2563eb;
+}
+
+.btn-tech{
+background:#2563eb;
+border:none;
+padding:10px 20px;
+border-radius:8px;
+color:white;
+}
+
+.btn-tech:hover{
+background:#1d4ed8;
+transform:scale(1.05);
+}
+
+.modal-content{
+background:white;
+color:#1e293b;
+}
+
+footer{
+margin-top:80px;
+padding:20px;
+text-align:center;
+opacity:0.7;
+color:#334155;
+}
+
+</style>
 </head>
 
 <body>
 
-<div id="pagina">
+<nav class="navbar navbar-expand-lg">
+<div class="container">
+<a class="navbar-brand fw-bold text-primary">TechWorld</a>
+</div>
+</nav>
 
-    <header id="topo">
-        <h1>Arquivo (Quase) Perdido da Ciência da Computação</h1>
-        <p>Uma coletânea caótica de fatos históricos, curiosos e inesperados.</p>
-    </header>
+<div class="container">
 
-    <nav id="menu-principal">
-        <ul>
-            <li><a href="#pioneiros">Pioneiros</a></li>
-            <li><a href="#bugs">Bugs</a></li>
-            <li><a href="#internet">Internet</a></li>
-            <li><a href="#linguagens">Linguagens</a></li>
-            <li><a href="#linha-do-tempo">Linha do Tempo</a></li>
-            <li><a href="#formulario">Envie Algo</a></li>
-        </ul>
-    </nav>
+<h1 class="titulo">Tecnologias da Web</h1>
 
-    <main>
+<div class="row g-4">
 
-        <section id="pioneiros">
-            <h2>Pioneiros Esquecidos</h2>
+<div class="col-md-4">
 
-            <article>
-                <h3>Ada Lovelace</h3>
-                <p>Considerada a primeira programadora da história.</p>
-                <details>
-                    <summary>Ver mais</summary>
-                    <p>Ela escreveu um algoritmo para a Máquina Analítica no século XIX.</p>
-                </details>
-            </article>
+<div class="card-tech">
 
-            <article>
-                <h3>Alan Turing</h3>
-                <p>Criador do conceito de Máquina de Turing.</p>
-                <blockquote>
-                    "Podemos ver apenas um pouco do futuro, mas o suficiente para perceber que há muito a fazer."
-                </blockquote>
-            </article>
+<i class="bi bi-filetype-html icon-tech"></i>
 
-            <aside>
-                <h4>Curiosidade lateral</h4>
-                <p>Durante décadas, o trabalho de Turing foi mantido em segredo.</p>
-            </aside>
-        </section>
+<h4>HTML</h4>
 
-        <section id="bugs">
-            <h2>Histórias de Bugs</h2>
+<p>
+Responsável por estruturar o conteúdo das páginas da web,
+organizando textos, imagens, links e outros elementos.
+</p>
 
-            <article>
-                <h3>O Primeiro Bug Real</h3>
-                <p>Uma mariposa encontrada em um computador em 1947.</p>
-                <figure>
-                    <figcaption>Registro do bug colado no relatório técnico.</figcaption>
-                </figure>
-            </article>
-
-            <article>
-                <h3>O Vírus Creeper</h3>
-                <p>Primeiro vírus da história (1971).</p>
-                <p>Mensagem exibida:</p>
-                <pre>
-I'M THE CREEPER : CATCH ME IF YOU CAN
-                </pre>
-            </article>
-        </section>
-
-        <section id="internet">
-            <h2>Curiosidades da Internet</h2>
-
-            <article>
-                <h3>Primeiro Website</h3>
-                <p>Criado em 1991 por Tim Berners-Lee.</p>
-            </article>
-
-            <article>
-                <h3>ARPANET</h3>
-                <p>A precursora da internet moderna.</p>
-                <ul>
-                    <li>Primeira mensagem enviada: "LO"</li>
-                    <li>O sistema caiu antes de completar "LOGIN"</li>
-                </ul>
-            </article>
-
-            <article>
-                <h3>Emojis e ASCII</h3>
-                <p>Antes dos emojis gráficos, usávamos:</p>
-                <code>:-)</code>
-                <code>;-)</code>
-                <code>:-D</code>
-            </article>
-        </section>
-
-        <section id="linguagens">
-            <h2>Linguagens de Programação</h2>
-
-            <article>
-                <h3>COBOL</h3>
-                <p>Ainda usado em sistemas bancários.</p>
-            </article>
-
-            <article>
-                <h3>C</h3>
-                <p>Base para muitos sistemas operacionais.</p>
-            </article>
-
-            <article>
-                <h3>HTML</h3>
-                <p>Não é linguagem de programação, mas estrutura a web.</p>
-            </article>
-
-            <div>
-                <table border="1">
-                    <caption>Linguagens e Ano de Criação</caption>
-                    <thead>
-                        <tr>
-                            <th>Linguagem</th>
-                            <th>Ano</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>COBOL</td>
-                            <td>1959</td>
-                        </tr>
-                        <tr>
-                            <td>C</td>
-                            <td>1972</td>
-                        </tr>
-                        <tr>
-                            <td>Python</td>
-                            <td>1991</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">Dados históricos aproximados</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </section>
-
-        <section id="linha-do-tempo">
-            <h2>Linha do Tempo Aleatória</h2>
-
-            <ol>
-                <li>1837 - Máquina Analítica</li>
-                <li>1946 - ENIAC</li>
-                <li>1969 - ARPANET</li>
-                <li>1991 - Primeiro site</li>
-                <li>2007 - Popularização dos smartphones</li>
-            </ol>
-        </section>
-
+<button class="btn btn-tech" data-bs-toggle="modal" data-bs-target="#htmlModal">
+Explorar
+</button>
 
 </div>
+</div>
 
+<div class="col-md-4">
 
-<header>
-    <h1>Fatos Inúteis (Mas Incríveis) da Ciência da Computação</h1>
-    <p>Informações que não vão melhorar seu código… mas vão melhorar sua aula.</p>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="#nomes">Nomes Estranhos</a></li>
-        <li><a href="#acidentes">Acidentes Tecnológicos</a></li>
-        <li><a href="#dinheiro">Erros Caríssimos</a></li>
-        <li><a href="#aleatorio">Aleatoriedades</a></li>
-        <li><a href="#form">Envie Algo Inútil</a></li>
-    </ul>
-</nav>
-
-
-
-<section id="nomes">
-    <h2>Nomes Estranhos da Computação</h2>
-
-    <article>
-        <h3>Spam vem de um presunto</h3>
-        <p>
-            O termo "spam" para emails indesejados vem de um esquete do 
-            <strong>Monty Python</strong> onde a palavra SPAM (marca de presunto enlatado) 
-            era repetida incessantemente.
-        </p>
-    </article>
-
-    <article>
-        <h3>Bluetooth tem nome viking</h3>
-        <p>
-            A tecnologia foi nomeada em homenagem ao rei 
-            <em>Harald "Bluetooth" Gormsson</em>, que unificou a Dinamarca.
-            A ideia era “unificar dispositivos”.
-        </p>
-    </article>
-
-    <article>
-        <h3>Bug é literalmente bug</h3>
-        <p>
-            O famoso inseto encontrado no computador 
-            <abbr title="Harvard Mark II">Mark II</abbr> em 1947 
-            era uma mariposa de verdade.
-        </p>
-        <details>
-            <summary>Detalhe inútil</summary>
-            <p>O inseto ainda está preservado em um museu.</p>
-        </details>
-    </article>
-
-</section>
-
-
-<section id="acidentes">
-
-    <h2>Acidentes Tecnológicos Surpreendentes</h2>
-
-    <article>
-        <h3>O primeiro domínio registrado</h3>
-        <p>
-            O primeiro domínio da história foi 
-            <code>symbolics.com</code> registrado em 1985.
-        </p>
-    </article>
-
-    <article>
-        <h3>O erro que quase causou guerra nuclear</h3>
-        <p>
-            Em 1983, um sistema soviético detectou falsamente mísseis americanos.
-            O oficial Stanislav Petrov decidiu ignorar o alerta.
-        </p>
-        <blockquote>
-            Um bug pode ter salvo o mundo.
-        </blockquote>
-    </article>
-
-    <article>
-        <h3>O computador que pesava 27 toneladas</h3>
-        <p>
-            O ENIAC ocupava 167 m² e consumia energia suficiente para escurecer parte da cidade.
-        </p>
-    </article>
-
-</section>
-
-
-<section id="dinheiro">
-
-    <h2>Erros Caríssimos</h2>
-
-    <article>
-        <h3>O traço que custou milhões</h3>
-        <p>
-            Em 1962, a NASA perdeu a sonda Mariner 1 por causa de um erro em uma fórmula matemática:
-            faltava um simples hífen.
-        </p>
-    </article>
-
-    <article>
-        <h3>Bitcoin jogado no lixo</h3>
-        <p>
-            Um homem no Reino Unido descartou um HD com 8.000 bitcoins.
-        </p>
-        <pre>
-Valor atual: melhor não calcular.
-        </pre>
-    </article>
-
-</section>
-
-
-<section id="aleatorio">
-
-    <h2>Coisas Aleatórias que Você Não Pediu</h2>
-
-    <article>
-        <h3>O primeiro emoticon</h3>
-        <p>
-            :-) foi sugerido em 1982 por Scott Fahlman.
-        </p>
-    </article>
-
-    <article>
-        <h3>A senha mais usada do mundo</h3>
-        <p><strong>123456</strong></p>
-    </article>
-
-    <article>
-        <h3>O Google já quebrou a internet</h3>
-        <p>
-            Em 2009, o Google marcou acidentalmente todos os sites como maliciosos por 40 minutos.
-        </p>
-    </article>
-
-    <article>
-        <h3>Computadores odeiam calor</h3>
-        <p>
-            Um data center pode usar mais água para resfriamento do que uma pequena cidade.
-        </p>
-    </article>
-
-</section>
-
-
-<section>
-
-    <h2>Tabela Totalmente Necessária</h2>
-
-    <table border="1">
-        <tr>
-            <th>Curiosidade</th>
-            <th>Nível de Inutilidade</th>
-        </tr>
-        <tr>
-            <td>Spam vem de presunto</td>
-            <td>Alto</td>
-        </tr>
-        <tr>
-            <td>Bluetooth é viking</td>
-            <td>Médio</td>
-        </tr>
-        <tr>
-            <td>Senha mais usada é 123456</td>
-            <td>Crítico</td>
-        </tr>
-    </table>
-
-</section>
-
-<header>
-    <h1>Coisas Que Seus Professores Não Contaram Sobre Computação</h1>
-    <p>Fatos obscuros, bugs absurdos e Easter eggs históricos.</p>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="#easter-eggs">Easter Eggs</a></li>
-        <li><a href="#bugs-absurdos">Bugs Absurdos</a></li>
-        <li><a href="#comandos-secretos">Comandos Estranhos</a></li>
-        <li><a href="#formulario-secreto">Envie Algo Suspeito</a></li>
-    </ul>
-</nav>
-
-
-<section id="easter-eggs">
-
-    <h2>Easter Eggs Reais e Oficiais</h2>
-
-    <article>
-        <h3>O Excel 97 tinha um simulador de voo escondido</h3>
-        <p>
-            O Microsoft Excel 97 escondia um jogo 3D estilo simulador de voo 
-            dentro da planilha.
-        </p>
-        <details>
-            <summary>Como ativava?</summary>
-            <p>Era preciso selecionar células específicas e usar combinações absurdas de teclado.</p>
-        </details>
-    </article>
-
-    <article>
-        <h3>O Google tem um T-Rex escondido</h3>
-        <p>
-            Quando você fica sem internet no Chrome, aparece um dinossauro.
-            Se apertar espaço, começa um jogo infinito.
-        </p>
-    </article>
-
-    <article>
-        <h3>O Windows 95 tinha créditos escondidos</h3>
-        <p>
-            Desenvolvedores colocaram seus nomes escondidos dentro do sistema.
-        </p>
-    </article>
-
-    <article>
-        <h3>O GitHub já teve um unicórnio voador</h3>
-        <p>
-            Em versões antigas, existia um modo visual alternativo escondido.
-        </p>
-    </article>
-
-</section>
-
-
-
-<section id="bugs-absurdos">
-
-    <h2>Bugs Absurdos da História</h2>
-
-    <article>
-        <h3>O bug que destruiu um foguete em 37 segundos</h3>
-        <p>
-            Em 1996, o foguete Ariane 5 explodiu por causa de uma conversão de número
-            de 64 bits para 16 bits.
-        </p>
-        <blockquote>
-            Custo do erro: aproximadamente 370 milhões de dólares.
-        </blockquote>
-    </article>
-
-    <article>
-        <h3>O Y2K (Bug do Milênio)</h3>
-        <p>
-            Sistemas antigos usavam apenas dois dígitos para o ano.
-            Em 2000, poderiam interpretar "00" como 1900.
-        </p>
-        <p>
-            O mundo gastou bilhões se preparando... e quase nada aconteceu.
-        </p>
-    </article>
-
-    <article>
-        <h3>O bug do Pentium</h3>
-        <p>
-            Um erro microscópico na divisão de números em processadores Intel
-            causava resultados errados em cálculos específicos.
-        </p>
-    </article>
-
-    <article>
-        <h3>O erro que duplicou dinheiro</h3>
-        <p>
-            Em 2012, um bug em um banco permitiu que clientes sacassem valores inexistentes.
-        </p>
-    </article>
-
-</section>
-
-
-
-<section id="comandos-secretos">
-
-    <h2>Comandos Estranhos e Inúteis</h2>
-
-    <article>
-        <h3>Konami Code</h3>
-        <p>
-            ↑ ↑ ↓ ↓ ← → ← → B A
-        </p>
-        <p>
-            Usado em dezenas de jogos e até em sites modernos.
-        </p>
-    </article>
-
-    <article>
-        <h3>sudo make me a sandwich</h3>
-        <pre>
-$ sudo make me a sandwich
-Okay.
-        </pre>
-        <p>Alguns sistemas Linux realmente respondem a isso.</p>
-    </article>
-
-    <article>
-        <h3>O comando que trava o Windows</h3>
-        <pre>
-CON CON
-        </pre>
-        <p>
-            No Windows antigo, criar uma pasta chamada CON era impossível.
-        </p>
-    </article>
-
-    <article>
-        <h3>A senha mais comum do planeta</h3>
-        <code>123456</code>
-        <p>
-            Continua sendo campeã mundial.
-        </p>
-    </article>
-
-</section>
-
-
-
-<section>
-
-    <h2>Tabela do Caos Digital</h2>
-
-    <table border="1">
-        <tr>
-            <th>Evento</th>
-            <th>Nível de Caos</th>
-            <th>Custo Aproximado</th>
-        </tr>
-        <tr>
-            <td>Ariane 5</td>
-            <td>Explosivo</td>
-            <td>370 milhões USD</td>
-        </tr>
-        <tr>
-            <td>Bug do Pentium</td>
-            <td>Matemático</td>
-            <td>475 milhões USD</td>
-        </tr>
-        <tr>
-            <td>Y2K</td>
-            <td>Psicológico</td>
-            <td>Bilhões USD</td>
-        </tr>
-    </table>
-
-</section>
-
-
-<section id="form">
-
-    <h2>Envie um Fato Inútil</h2>
-
-    <form>
-        <fieldset>
-            <legend>Cadastro de Inutilidades</legend>
-
-            <label>Nome:</label>
-            <input type="text" name="nome">
-
-            <label>Fato Inútil:</label>
-            <input type="text" name="fato">
-
-            <label>Grau de inutilidade (0-10):</label>
-            <input type="number" name="grau" min="0" max="10">
-
-            <input type="submit" value="Enviar inutilidade">
-        </fieldset>
-    </form>
-    
-</section>
- <section id="formulario">
-            <h2>Envie sua Curiosidade</h2>
-
-            <form>
-                <fieldset>
-                    <legend>Informações</legend>
-
-                    <label>Nome:</label>
-                    <input type="text" name="nome">
-
-                    <label>Email:</label>
-                    <input type="email" name="email">
-
-                    <label>Categoria:</label>
-                    <select name="categoria">
-                        <option>Pioneiros</option>
-                        <option>Bugs</option>
-                        <option>Internet</option>
-                        <option>Linguagens</option>
-                    </select>
-
-                    <label>Data do fato:</label>
-                    <input type="date" name="data">
-
-                    <label>Sua curiosidade:</label>
-                    <textarea name="curiosidade"></textarea>
-
-                    <input type="submit" value="Enviar">
-                </fieldset>
-            </form>
-        </section>
-
-    
-<section id="formulario-secreto">
-
-    <h2>Envie um Bug ou Easter Egg</h2>
-
-    <form>
-        <fieldset>
-            <legend>Cadastro Suspeito</legend>
-
-            <label>Seu nome:</label>
-            <input type="text" name="nome">
-
-            <label>Tipo:</label>
-            <select name="tipo">
-                <option>Bug</option>
-                <option>Easter Egg</option>
-                <option>Comando estranho</option>
-            </select>
-
-            <label>Descrição:</label>
-            <textarea name="descricao"></textarea>
-
-            <label>Grau de estranheza (1-10):</label>
-            <input type="number" min="1" max="10">
-
-            <input type="submit" value="Enviar para os arquivos secretos">
-        </fieldset>
-    </form>
-
-</section>
-
-
-</main>
-</body>
+<div class="card-tech">
+
+<i class="bi bi-palette icon-tech"></i>
+
+<h4>CSS</h4>
+
+<p>
+Utilizado para estilizar páginas web, definindo cores,
+fontes, layouts e diversos efeitos visuais.
+</p>
+
+<button class="btn btn-tech" data-bs-toggle="modal" data-bs-target="#cssModal">
+Explorar
+</button>
+
+</div>
+</div>
+
+<div class="col-md-4">
+
+<div class="card-tech">
+
+<i class="bi bi-code-slash icon-tech"></i>
+
+<h4>JavaScript</h4>
+
+<p>
+Linguagem de programação responsável por adicionar
+interatividade e dinamismo às páginas web.
+</p>
+
+<button class="btn btn-tech" data-bs-toggle="modal" data-bs-target="#jsModal">
+Explorar
+</button>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- MODAL HTML -->
+
+<div class="modal fade" id="htmlModal">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-header">
+<h5 class="modal-title">HTML</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+HTML (HyperText Markup Language) é a linguagem responsável
+pela estrutura das páginas da web. Com ela é possível criar
+títulos, parágrafos, imagens, links, formulários e diversos
+outros elementos que compõem um site.
+
+Ele funciona como a base do desenvolvimento web,
+organizando o conteúdo para que os navegadores consigam
+interpretar e exibir corretamente as informações.
+
+</div>
+</div>
+</div>
+</div>
+
+<!-- MODAL CSS -->
+
+<div class="modal fade" id="cssModal">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-header">
+<h5 class="modal-title">CSS</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+CSS (Cascading Style Sheets) é utilizado para definir
+a aparência das páginas da web. Ele controla cores,
+fontes, espaçamentos, layouts e animações.
+
+Através do CSS é possível criar interfaces modernas,
+responsivas e visualmente agradáveis para os usuários.
+
+</div>
+</div>
+</div>
+</div>
+
+<!-- MODAL JS -->
+
+<div class="modal fade" id="jsModal">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-header">
+<h5 class="modal-title">JavaScript</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+JavaScript é uma linguagem de programação utilizada
+para tornar as páginas web interativas.
+
+Com ela é possível criar animações, validar formulários,
+manipular elementos da página e desenvolver aplicações
+web completas executadas diretamente no navegador.
+
+</div>
+</div>
+</div>
+</div>
+
 <footer>
-    <p>© 2026 Instituto Internacional de Informações Desnecessárias</p>
-    <address>Email: inutilidades@caosdigital.com</address>
-      <p>&copy; 2026 Arquivo Confuso da Computação</p>
-        <address>
-            Contato: contato@computacao.com
-        </address>
-         <p>© 2026 Arquivo Ultra-Secreto da Computação</p>
-    <address>contato@ultrasecreto.dev</address>
+Projeto acadêmico • Engenharia de Software
 </footer>
 
-</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+
