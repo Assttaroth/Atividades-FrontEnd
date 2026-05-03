@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset:"UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <title>Copa do Mundo 2026</title>
+    </head>
+<nav>
+        <a href="#organizacao">Organização</a> | 
+        <a href="#formato">Novo Formato</a> | 
+        <a href="#expectativas">Expectativas</a>
+    </nav>
+
+    <button onclick="mostrarTabela()" class="btn-tabela">Mostrar Tabela de Jogos</button>
+
+    <h1>Informações sobre a Copa Do Mundo</h1>
+
+
+    <section id="organizacao">
+        <h2> Organização e Sedes</h2>
+        <p>
+            A Copa do Mundo FIFA de 2026 será a primeira edição realizada em três países: 
+            Estados Unidos, Canadá e México. Essa será também a maior Copa da história 
+            em número de cidades-sede, com partidas distribuídas por diversas regiões 
+            da América do Norte, ampliando o alcance global do torneio.
+        </p>
+    </section>
+
+   
+    <section id="formato">
+        <h2> Novo Formato</h2>
+        <p>
+            O torneio contará com 48 seleções, em vez das tradicionais 32. As equipes 
+            serão divididas em grupos, aumentando o número total de jogos e dando mais 
+            oportunidades para países de diferentes continentes participarem. Essa 
+            mudança foi promovida pela FIFA para tornar a competição mais inclusiva e competitiva.
+        </p>
+    </section>
+
+   
+    <section id="expectativas">
+        <h2> Expectativas e Impacto</h2>
+        <p>
+            A edição de 2026 promete ser uma das mais assistidas da história, com grande 
+            impacto econômico e cultural nos países-sede. Além disso, seleções tradicionais 
+            e emergentes devem protagonizar jogos de alto nível, aumentando ainda mais o 
+            interesse global pelo futebol e fortalecendo o esporte em novas regiões.
+        </p>
+    </section>
+
+    <script>
+    function mostrarTabela() {
+        if (document.getElementById('tabela-jogos')) {
+            alert("A tabela já está sendo exibida!");
+            return;
+        }
+
+        const img = document.createElement('img');
+        
+      
+        img.src = 'Tabela_Jogos.png';
+        img.id = 'tabela-jogos';
+        img.alt = 'Tabela Oficial de Jogos Copa 2026';
+        
+       
+        img.style.display = 'block';
+        img.style.margin = '30px auto';
+        img.style.maxWidth = '90%';
+        img.style.borderRadius = '15px';
+        img.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+
+        document.body.appendChild(img);
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+</html>
