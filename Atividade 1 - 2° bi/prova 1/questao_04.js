@@ -1,5 +1,5 @@
 function revelar() {
-    document.querySelector(".card-img-top").src = "img/_vinicius_junior.png";
+    document.querySelector(".card-img-top").src = "vinicius_junior.png";
     document.getElementById("Nome").childNodes[0].textContent = "Vinícius José Paixão de Oliveira Júnior ";
     document.getElementById("Data_Nas").textContent = "12/07/2000 (25 anos)";
     document.getElementById("Alutra").textContent = "1,76 m";
