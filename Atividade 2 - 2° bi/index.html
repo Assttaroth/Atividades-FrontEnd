@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Prática: Lógica com JavaScript</title>
+    <style>
+       :root {
+    --bg-color: #0f172a;       
+    --card-bg: #1e293b;        
+    --border-color: #334155;   
+    --text-main: #f8fafc;      
+    --text-muted: #94a3b8;     
+    --accent-color: #38bdf8;   
+    --accent-hover: #0ea5e9;
+    --success-color: #10b981; 
+    --error-color: #ef4444;    
+    --info-color: #6366f1;    
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    border: 1px solid #312e81;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header p {
+    margin: 12px 0 0;
+    color: var(--text-muted);
+    font-size: 1.05em;
+}
+
+.question-card {
+    background: var(--card-bg);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 35px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.question-card:hover {
+    border-color: #475569;
+}
+
+.question-header {
+    font-weight: 700;
+    font-size: 1.4em;
+    color: var(--text-main);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h2 {
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-color);
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.intro-box {
+    background-color: rgba(15, 23, 42, 0.6);
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    font-size: 0.95em;
+}
+
+.comando {
+    font-weight: 400;
+    color: #e2e8f0;
+}
+
+.descritivo-apoio {
+    background-color: rgba(230, 126, 34, 0.05);
+    padding: 16px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(230, 126, 34, 0.25);
+    font-size: 0.9em;
+    color: #fdba74;
+}
+
+.item-destaque {
+    background-color: rgba(56, 189, 248, 0.05);
+    padding: 14px 18px;
+    margin: 15px 0;
+    border-radius: 10px;
+    font-size: 0.92em;
+    color: #7dd3fc;
+    border-left: 4px solid var(--accent-color);
+}
+
+code {
+    background: #0f172a;
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85em;
+    color: #f43f5e;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+ul { padding-left: 20px; margin-top: 10px; }
+li { margin-bottom: 6px; color: var(--text-muted); }
+
+/* Área Interativa dos Exercícios */
+.interactive-area {
+    background: rgba(15, 23, 42, 0.4);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-top: 24px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #cbd5e1;
+}
+
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #0f172a;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-main);
+    box-sizing: border-box;
+    font-size: 0.95em;
+    transition: focus 0.2s, border-color 0.2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+button {
+    background-color: var(--accent-color);
+    color: #0f172a;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 0.95em;
+    font-weight: 500;
+    display: none;
+}
+
+.txt-success { 
+    color: #34d399; 
+    background-color: rgba(16, 185, 129, 0.1); 
+    border: 1px solid rgba(16, 185, 129, 0.2); 
+}
+.txt-error { 
+    color: #f87171; 
+    background-color: rgba(239, 68, 68, 0.1); 
+    border: 1px solid rgba(239, 68, 68, 0.2); 
+}
+.txt-info { 
+    color: #818cf8; 
+    background-color: rgba(99, 102, 241, 0.1); 
+    border: 1px solid rgba(99, 102, 241, 0.2); 
+}
+
+.vip-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.vip-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: #1e293b;
+    margin-bottom: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.vip-name {
+    font-size: 0.95em;
+    color: var(--text-main);
+}
+
+.classe-riscado {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.vip-actions button {
+    padding: 6px 12px;
+    font-size: 0.85em;
+    margin-left: 6px;
+    color: white;
+}
+
+.btn-done { background-color: var(--success-color); }
+.btn-edit { background-color: #f59e0b; }
+.btn-delete { background-color: var(--error-color); }
+
+.vip-actions button:hover {
+    opacity: 0.9;
+    transform: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #1e293b;
+    color: var(--accent-color);
+}
+
+td {
+    color: var(--text-muted);
+}
+
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Laboratório de Programação FrontEnd </h1>
+            <p>Exercícios de Fixação: Lógica e Manipulação de DOM</p>
+        </header>
+
+        <!-- EXERCÍCIO 01 -->
+        <section class="question-card">
+            <div class="question-header">⚡ Exercício 01: Validador de CPF</div>
+            <h2>Introdução:</h2>
+            <div class="intro-box">
+                Validar documentos é uma tarefa comum em sistemas de cadastro. Um CPF não é apenas uma sequência de 11 números; ele possui uma lógica matemática baseada em dígitos verificadores para evitar erros de digitação e fraudes básicas.
+            </div>
+            <h2>Comando:</h2>
+            <div class="comando">
+                Desenvolva uma página que receba um número de CPF e informe se ele é <strong>Válido</strong> ou <strong>Inválido</strong>.
+            </div>
+
+            <div class="interactive-area">
+                <div class="form-group">
+                    <label for="cpfInput">Digite o CPF (Apenas números ou formatado):</label>
+                    <input type="text" id="cpfInput" placeholder="000.000.000-00" maxlength="14">
+                </div>
+                <button onclick="validarCPF()">Validar</button>
+                <div id="resultadoCpf" class="result-box"></div>
+            </div>
+        </section>
+
+        <!-- EXERCÍCIO 02 -->
+        <section class="question-card">
+            <div class="question-header">🌡️ Exercício 02: Conversor Dinâmico</div>
+            <h2>Introdução:</h2>
+            <div class="intro-box">
+                A interatividade em tempo real melhora a experiência do usuário (UX). Ao invés de clicar em um botão, o sistema pode reagir instantaneamente conforme o usuário digita os dados.
+            </div>
+            <h2>Comando:</h2>
+            <div class="comando">
+                Crie um conversor de temperatura entre Celsius (C) e Fahrenheit (F) que funcione nos dois sentidos e em tempo real.
+            </div>
+
+            <div class="interactive-area">
+                <div style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="celsiusInput">Celsius (°C)</label>
+                        <input type="number" id="celsiusInput" step="0.1" placeholder="Ex: 25">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="fahrenheitInput">Fahrenheit (°F)</label>
+                        <input type="number" id="fahrenheitInput" step="0.1" placeholder="Ex: 77">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXERCÍCIO 03 -->
+        <section class="question-card">
+            <div class="question-header">🎓 Exercício 03: Média Escolar</div>
+            <h2>Introdução:</h2>
+            <div class="intro-box">
+                Sistemas acadêmicos utilizam estruturas condicionais para decidir o fluxo do aluno. Além do cálculo aritmético, o sistema deve interpretar o resultado e fornecer um feedback visual e textual adequado.
+            </div>
+            <h2>Comando:</h2>
+            <div class="comando">
+                Construa uma interface que receba o nome de um aluno e três notas, calculando a média e a situação final.
+            </div>
+
+            <div class="interactive-area">
+                <div class="form-group">
+                    <label for="alunoNome">Nome do Aluno:</label>
+                    <input type="text" id="alunoNome" placeholder="Nome do aluno">
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="nota1">Nota 1:</label>
+                        <input type="number" id="nota1" min="0" max="10" step="0.1">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="nota2">Nota 2:</label>
+                        <input type="number" id="nota2" min="0" max="10" step="0.1">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="nota3">Nota 3:</label>
+                        <input type="number" id="nota3" min="0" max="10" step="0.1">
+                    </div>
+                </div>
+                <button onclick="calcularMedia()">Calcular Média</button>
+                <div id="resultadoMedia" class="result-box"></div>
+            </div>
+        </section>
+
+        <!-- EXERCÍCIO 04 -->
+        <section class="question-card">
+            <div class="question-header">💳 Exercício 04: Taxas Infinity Bank</div>
+            <h2>Introdução:</h2>
+            <div class="intro-box">
+                Cálculos financeiros exigem precisão e o uso de seletores dinâmicos. Lojistas precisam saber exatamente quanto vão pagar de taxa e quanto o cliente pagará de juros em uma transação parcelada.
+            </div>
+            <h2>Comando:</h2>
+            <div class="comando">
+                Desenvolva o simulador de vendas do Infinity Bank. O usuário deve escolher a bandeira, o valor e o número de parcelas.
+            </div>
+
+            <div class="interactive-area">
+                <div class="form-group">
+                    <label for="vendaValor">Valor da Venda (R$):</label>
+                    <input type="number" id="vendaValor" step="0.01" placeholder="0,00">
+                </div>
+                <div style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="bandeiraCartao">Bandeira:</label>
+                        <select id="bandeiraCartao">
+                            <option value="visa">Visa</option>
+                            <option value="master">Mastercard</option>
+                            <option value="elo">Elo</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="parcelasCartao">Parcelas:</label>
+                        <input type="number" id="parcelasCartao" min="1" value="1">
+                    </div>
+                </div>
+                <button onclick="simularVenda()">Simular Venda</button>
+                <div id="resultadoVenda" class="result-box txt-info"></div>
+            </div>
+        </section>
+
+        <!-- EXERCÍCIO 05 -->
+        <section class="question-card">
+            <div class="question-header">👥 Exercício 05: Gestão de Convidados VIP</div>
+            <h2>Introdução:</h2>
+            <div class="intro-box">
+                Interfaces administrativas exigem manipulação direta de listas e estados. Para o evento de inauguração do banco, precisamos de um sistema que gerencie a entrada de convidados, permitindo edições rápidas e controle de presença sem a necessidade de recarregar a página.
+            </div>
+            <h2>Comando:</h2>
+            <div class="comando">
+                Construa a ferramenta <strong>"Infinity Bank - Lista de Convidados VIP"</strong> utilizando manipulação de arrays e DOM.
+            </div>
+
+            <div class="interactive-area">
+                <div class="form-group">
+                    <label for="vipInput">Nome do Convidado VIP:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="vipInput" placeholder="Ex: João Silva" style="flex: 1;">
+                        <button onclick="adicionarConvidado()">Adicionar</button>
+                    </div>
+                </div>
+                <ul id="listaVip" class="vip-list"></ul>
+            </div>
+        </section>
+
+        <!-- EXERCÍCIO 06 -->
+        <section class="question-card">
+            <div class="question-header">🎉 Exercício 06: Crédito para Festas & Eventos</div>
+            <h2>Introdução:</h2>
+            <div class="intro-box">
+                O Infinity Bank agora oferece um serviço de crédito exclusivo para festas e eventos corporativos. O objetivo desta ferramenta é facilitar o planejamento do cliente, fornecendo um orçamento instantâneo que considera o nível de serviço desejado e o volume de convidados.
+            </div>
+            <h2>Comando:</h2>
+            <div class="comando">
+                Desenvolva uma página que ajude o cliente a calcular o custo total de um evento de forma dinâmica.
+            </div>
+
+            <div class="interactive-area">
+                <div style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="pacoteEvento">Pacote de Serviço:</label>
+                        <select id="pacoteEvento">
+                            <option value="50">Standard (R$ 50,00/pessoa)</option>
+                            <option value="80">Premium (R$ 80,00/pessoa)</option>
+                            <option value="120">Infinity Deluxe (R$ 120,00/pessoa)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="qtdPessoas">Quantidade de Convidados:</label>
+                        <input type="number" id="qtdPessoas" min="1" placeholder="Ex: 50">
+                    </div>
+                </div>
+                <button onclick="calcularOrcamento()">Calcular Orçamento</button>
+                <div id="resultadoOrcamento" class="result-box txt-info"></div>
+            </div>
+        </section>
+
+        <!-- EXERCÍCIO 07 -->
+        <section class="question-card">
+            <div class="question-header">🛡️ Exercício 07: Validador de Segurança Infinity</div>
+            <h2>Introdução:</h2>
+            <div class="intro-box">
+                A validação de dados sensíveis é o primeiro nível de defesa em sistemas financeiros. O <strong>Card Guard</strong> utiliza o Algoritmo de Luhn para verificar a integridade matemática de números de cartões.
+            </div>
+            <h2>Comando:</h2>
+            <div class="comando">
+                Desenvolva uma ferramenta de análise que verifique se um número de cartão de crédito é matematicamente válido e extraia suas informações de origem.
+            </div>
+
+            <div class="interactive-area">
+                <div class="form-group">
+                    <label for="cartaoInput">Número do Cartão de Crédito:</label>
+                    <input type="text" id="cartaoInput" placeholder="Apenas números (Até 16 dígitos)" maxlength="16">
+                </div>
+                <button onclick="analisarCartao()">Analisar Cartão</button>
+                <div id="resultadoCartao" class="result-box" style="line-height: 1.8;"></div>
+            </div>
+
+            <h2>Descritivo de Apoio:</h2>
+            <div class="descritivo-apoio">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Composição do IIN</th>
+                            <th>Atribuição de Dados</th>
+                            <th>Finalidade no Processamento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dígito 1</td>
+                            <td>Código do Setor Industrial Geral</td>
+                            <td>Roteamento inicial na rede de adquirência</td>
+                        </tr>
+                        <tr>
+                            <td>Dígitos 2 a 5</td>
+                            <td>Código Geográfico e do Emissor</td>
+                            <td>Identifica o país de origem e o banco detentor do lote</td>
+                        </tr>
+                        <tr>
+                            <td>Dígitos 6 a 8</td>
+                            <td>Código da Carteira de Produtos</td>
+                            <td>Determina se o produto é Pré-pago, Débito ou Crédito</td>
+                        </tr>
+                        <tr>
+                            <td>Dígito 9 em diante</td>
+                            <td>Fora do IIN (Conta + Verificação)</td>
+                            <td>Identificação única do cliente e validação de Luhn</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            Atividade Prática de JavaScript - Desenvolvido com ❤️ by Dacio Machado 
+        </footer>
+    </div>
+
+    <script>
+        
+        // EXERCÍCIO 01: VALIDADOR DE CPF
+        function validarCPF() {
+            let cpf = document.getElementById('cpfInput').value.replace(/\D/g, '');
+            let resBox = document.getElementById('resultadoCpf');
+            resBox.style.display = "block";
+
+            if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+                resBox.className = "result-box txt-error";
+                resBox.innerText = "CPF Inválido (Formato ou dígitos repetidos).";
+                return;
+            }
+
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            let resto = (soma * 10) % 11;
+            let d1 = (resto === 10 || resto === 11) ? 0 : resto;
+
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = (soma * 10) % 11;
+            let d2 = (resto === 10 || resto === 11) ? 0 : resto;
+
+            if (d1 === parseInt(cpf.charAt(9)) && d2 === parseInt(cpf.charAt(10))) {
+                resBox.className = "result-box txt-success";
+                resBox.innerText = "CPF Válido!";
+            } else {
+                resBox.className = "result-box txt-error";
+                resBox.innerText = "CPF Inválido.";
+            }
+        }
+
+        // EXERCÍCIO 02: CONVERSOR DINÂMICO
+        const celsiusInput = document.getElementById('celsiusInput');
+        const fahrenheitInput = document.getElementById('fahrenheitInput');
+
+        celsiusInput.addEventListener('input', () => {
+            if (celsiusInput.value === "") { fahrenheitInput.value = ""; return; }
+            let c = parseFloat(celsiusInput.value);
+            let f = (c * 9/5) + 32;
+            fahrenheitInput.value = f.toFixed(2);
+        });
+
+        fahrenheitInput.addEventListener('input', () => {
+            if (fahrenheitInput.value === "") { celsiusInput.value = ""; return; }
+            let f = parseFloat(fahrenheitInput.value);
+            let c = (f - 32) * 5/9;
+            celsiusInput.value = c.toFixed(2);
+        });
+
+        // EXERCÍCIO 03: MÉDIA ESCOLAR
+        function calcularMedia() {
+            let nome = document.getElementById('alunoNome').value;
+            let n1 = Number(document.getElementById('nota1').value);
+            let n2 = Number(document.getElementById('nota2').value);
+            let n3 = Number(document.getElementById('nota3').value);
+            let resBox = document.getElementById('resultadoMedia');
+            resBox.style.display = "block";
+
+            if(!nome) {
+                resBox.className = "result-box txt-error";
+                resBox.innerText = "Por favor, preencha o nome do aluno.";
+                return;
+            }
+
+            let media = (n1 + n2 + n3) / 3;
+            let mediaFormatada = media.toFixed(2);
+
+            if (media >= 7.0 && media <= 10.0) {
+                resBox.style.color = "#2980b9"; 
+                resBox.style.backgroundColor = "#eaf2f8";
+                resBox.style.border = "1px solid #2980b9";
+                resBox.innerHTML = `Parabéns ${nome}! Você foi Aprovado com Média: ${mediaFormatada}`;
+            } else if (media >= 4.0 && media < 7.0) {
+                let quantoFalta = (10 - media).toFixed(2);
+                resBox.className = "result-box txt-success";
+                resBox.innerHTML = `${nome} está de Exame. Média: ${mediaFormatada}. Falta ${quantoFalta} para atingir a nota máxima 10.0.`;
+            } else {
+                resBox.className = "result-box txt-error"; 
+                resBox.innerHTML = `${nome} foi Reprovado. Média: ${mediaFormatada}`;
+            }
+        }
+
+        // EXERCÍCIO 04: TAXAS INFINITY BANK
+        function simularVenda() {
+            let venda = parseFloat(document.getElementById('vendaValor').value);
+            let bandeira = document.getElementById('bandeiraCartao').value;
+            let parcelas = parseInt(document.getElementById('parcelasCartao').value);
+            let resBox = document.getElementById('resultadoVenda');
+            resBox.style.display = "block";
+
+            if (isNaN(venda) || venda <= 0 || isNaN(parcelas) || parcelas < 1) {
+                resBox.className = "result-box txt-error";
+                resBox.innerText = "Insira valores válidos para a simulação.";
+                return;
+            }
+
+            let taxaBandeiraPorcentagem = 0;
+            switch(bandeira) {
+                case 'visa': taxaBandeiraPorcentagem = 0.02; break;
+                case 'master': taxaBandeiraPorcentagem = 0.0185; break;
+                case 'elo': taxaBandeiraPorcentagem = 0.03; break;
+            }
+
+            let valorTaxaBandeira = venda * taxaBandeiraPorcentagem;
+            
+            let jurosTotais = venda * (0.015 * parcelas);
+            
+            let taxaFixaMensalTotal = 12.50 * parcelas;
+
+            let valorTotalFinal = venda + valorTaxaBandeira + jurosTotais + taxaFixaMensalTotal;
+            let valorParcela = valorTotalFinal / parcelas;
+
+            resBox.className = "result-box txt-info";
+            resBox.innerHTML = `
+                Taxa da Bandeira: R$ ${valorTaxaBandeira.toFixed(2)}<br>
+                Juros de Financiamento: R$ ${jurosTotais.toFixed(2)}<br>
+                Taxa Administrativa Fixa (R$ 12.50/mês): R$ ${taxaFixaMensalTotal.toFixed(2)}<br>
+                <strong>Valor Total: R$ ${valorTotalFinal.toFixed(2)}</strong><br>
+                <strong>${parcelas}x de R$ ${valorParcela.toFixed(2)}</strong>
+            `;
+        }
+
+        // EXERCÍCIO 05: GESTÃO DE CONVIDADOS VIP
+        let listaVIPArray = [];
+
+        function adicionarConvidado() {
+            let input = document.getElementById('vipInput');
+            let nome = input.value.trim();
+
+            if (nome === "") return;
+
+            listaVIPArray.push({ nome: nome, presente: false });
+            input.value = "";
+            renderizarListaVIP();
+        }
+
+        function renderizarListaVIP() {
+            let ul = document.getElementById('listaVip');
+            ul.innerHTML = "";
+
+            listaVIPArray.forEach((convidado, index) => {
+                let li = document.createElement('li');
+                li.className = "vip-item";
+
+                let spanNome = document.createElement('span');
+                spanNome.className = "vip-name" + (convidado.presente ? " classe-riscado" : "");
+                spanNome.innerText = convidado.nome;
+
+                let divActions = document.createElement('div');
+                divActions.className = "vip-actions";
+
+                let btnDone = document.createElement('button');
+                btnDone.className = "btn-done";
+                btnDone.innerText = "Concluir";
+                btnDone.onclick = () => {
+                    listaVIPArray[index].presente = !listaVIPArray[index].presente;
+                    renderizarListaVIP();
+                };
+
+                let btnEdit = document.createElement('button');
+                btnEdit.className = "btn-edit";
+                btnEdit.innerText = "Editar";
+                btnEdit.onclick = () => {
+                    let novoNome = prompt("Editar nome do VIP:", convidado.nome);
+                    if (novoNome && novoNome.trim() !== "") {
+                        listaVIPArray[index].nome = novoNome.trim();
+                        renderizarListaVIP();
+                    }
+                };
+
+                let btnDelete = document.createElement('button');
+                btnDelete.className = "btn-delete";
+                btnDelete.innerText = "Excluir";
+                btnDelete.onclick = () => {
+                    listaVIPArray.splice(index, 1);
+                    renderizarListaVIP();
+                };
+
+                divActions.appendChild(btnDone);
+                divActions.appendChild(btnEdit);
+                divActions.appendChild(btnDelete);
+
+                li.appendChild(spanNome);
+                li.appendChild(divActions);
+                ul.appendChild(li);
+            });
+        }
+
+        // EXERCÍCIO 06: CRÉDITO PARA FESTAS & EVENTOS
+        function calcularOrcamento() {
+            let precoPorPessoa = parseFloat(document.getElementById('pacoteEvento').value);
+            let qtd = parseInt(document.getElementById('qtdPessoas').value);
+            let resBox = document.getElementById('resultadoOrcamento');
+            resBox.style.display = "block";
+
+            if(isNaN(qtd) || qtd <= 0) {
+                resBox.className = "result-box txt-error";
+                resBox.innerText = "Insira uma quantidade de pessoas válida.";
+                return;
+            }
+
+            let custoBruto = precoPorPessoa * qtd;
+            let taxaServico = custoBruto * 0.10;
+            let totalComTaxa = custoBruto + taxaServico;
+            let desconto = 0;
+
+            if (qtd > 100) {
+                desconto = totalComTaxa * 0.05;
+            }
+
+            let totalFinal = totalComTaxa - desconto;
+
+            resBox.className = "result-box txt-info";
+            resBox.innerHTML = `
+                Custo Bruto: R$ ${custoBruto.toFixed(2)}<br>
+                Taxa de Serviço (10%): R$ ${taxaServico.toFixed(2)}<br>
+                Desconto Fidelidade (5%): R$ ${desconto.toFixed(2)}<br>
+                <strong>Total Final: R$ ${totalFinal.toFixed(2)}</strong>
+            `;
+        }
+
+        // EXERCÍCIO 07: VALIDADOR DE SEGURANÇA INFINITY
+        function analisarCartao() {
+            let num = document.getElementById('cartaoInput').value.replace(/\s+/g, '');
+            let resBox = document.getElementById('resultadoCartao');
+            resBox.style.display = "block";
+
+            if (num.length < 13 || num.length > 16 || isNaN(num)) {
+                resBox.className = "result-box txt-error";
+                resBox.innerText = "Número inválido. O cartão deve possuir entre 13 e 16 dígitos numéricos.";
+                return;
+            }
+
+            let soma = 0;
+            let inverter = false;
+            for (let i = num.length - 1; i >= 0; i--) {
+                let digito = parseInt(num.charAt(i));
+
+                if (inverter) {
+                    digito *= 2;
+                    if (digito > 9) digito -= 9;
+                }
+
+                soma += digito;
+                inverter = !inverter;
+            }
+            let valido = (soma % 10 === 0);
+
+            let status = valido ? "Válido" : "Inválido";
+            let statusClass = valido ? "txt-success" : "txt-error";
+
+            let bandeira = "Desconhecida";
+            if (num.startsWith('4')) bandeira = "Visa";
+            else if (/^(5[1-5]|2[2-7])/.test(num)) bandeira = "Mastercard";
+            else if (/^(4011|4312|4389|4514|4576|5041|5067|5090|6277|6362|6363|650|651|652)/.test(num)) bandeira = "Elo";
+            else if (num.startsWith('34') || num.startsWith('37')) bandeira = "American Express";
+
+            let primeiroDigito = num.charAt(0);
+            let setor = "Outros Setores";
+            switch(primeiroDigito) {
+                case '1': case '2': setor = "Linhas Aéreas / Aviação"; break;
+                case '3': setor = "Viagens, Entretenimento e Lazer (Ex: Amex)"; break;
+                case '4': case '5': setor = "Bancos e Setor Financeiro (Ex: Visa/Master)"; break;
+                case '6': setor = "Merchandising e Setor Bancário"; break;
+                case '7': setor = "Indústria do Petróleo"; break;
+                case '8': setor = "Telecomunicações e Saúde"; break;
+                case '9': setor = "Atribuição Nacional / Governos"; break;
+            }
+
+            let digitosEmissor = num.substring(1, 5);
+            let bancoEmissor = "Emissor Internacional / Não Cadastrado";
+            if (digitosEmissor.startsWith('123')) bancoEmissor = "Infinity Bank Corp";
+            else if (digitosEmissor.startsWith('555')) bancoEmissor = "Banco Central do Brasil Fictício";
+
+            resBox.className = `result-box ${statusClass}`;
+            resBox.innerHTML = `
+                <strong>Status de Validade:</strong> ${status} (Luhn)<br>
+                <strong>Bandeira Identificada:</strong> ${bandeira}<br>
+                <strong>Setor Industrial (Dígito 1):</strong> ${setor}<br>
+                <strong>Banco Emissor (Identificação IIN):</strong> ${bancoEmissor}
+            `;
+        }
+    </script>
+</body>
+</html>
