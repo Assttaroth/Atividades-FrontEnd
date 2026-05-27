@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GuessWord - Jogo de Adivinhação</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #121213;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    #root {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .app {
+      text-align: center;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 10px;
+      font-size: 32px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: #818384;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .board {
+      margin-bottom: 30px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .tile {
+      width: 52px;
+      height: 52px;
+      border: 2px solid #3a3a3c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: white;
+      transition: all 0.2s;
+      background-color: #121213;
+    }
+
+    .tile-correct {
+      background-color: #538d4e;
+      border-color: #538d4e;
+      animation: flip 0.5s ease;
+    }
+
+    .tile-present {
+      background-color: #b59f3b;
+      border-color: #b59f3b;
+      animation: flip 0.5s ease;
+    }
+
+    .tile-absent {
+      background-color: #3a3a3c;
+      border-color: #3a3a3c;
+      animation: flip 0.5s ease;
+    }
+
+    .keyboard {
+      margin-top: 20px;
+    }
+
+    .keyboard-row {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .key {
+      height: 55px;
+      min-width: 38px;
+      padding: 0 6px;
+      border: none;
+      border-radius: 4px;
+      background-color: #818384;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.1s;
+      user-select: none;
+    }
+
+    .key:hover {
+      opacity: 0.85;
+    }
+
+    .key:active {
+      transform: scale(0.95);
+    }
+
+    .key-wide {
+      min-width: 60px;
+      font-size: 11px;
+    }
+
+    .message {
+      margin: 10px 0;
+      padding: 12px;
+      background-color: #3a3a3c;
+      border-radius: 8px;
+      font-weight: bold;
+      animation: fadeIn 0.3s;
+      font-size: 16px;
+    }
+
+    .message-final {
+      background-color: #538d4e;
+      color: white;
+      font-size: 18px;
+      padding: 15px;
+    }
+
+    .reset-btn {
+      margin-top: 15px;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #538d4e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      background-color: #4a7d45;
+    }
+
+    .instructions {
+      color: #818384;
+      font-size: 12px;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    @keyframes flip {
+      0% {
+        transform: rotateX(0deg);
+      }
+      50% {
+        transform: rotateX(90deg);
+      }
+      100% {
+        transform: rotateX(0deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <!-- React -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- React App -->
+  <script type="text/babel">
+
+    const { useState, useEffect } = React;
+
+    const SECRET_WORD = 'REACT';
+
+    const VALID_WORDS = [
+      'REACT', 'WORLD', 'PLANE', 'HOUSE', 'GAMES',
+      'CLOUD', 'LIGHT', 'MUSIC', 'HAPPY', 'SMILE',
+      'WATER', 'EARTH', 'PLANT', 'HEART', 'BRAIN',
+      'STORM', 'NIGHT', 'DREAM', 'SPACE', 'STONE'
+    ];
+
+    function checkGuess(guess, secretWord) {
+      const result = Array(5).fill('absent');
+
+      const secretLetters = secretWord.split('');
+      const guessLetters = guess.split('');
+
+      const secretCopy = [...secretLetters];
+
+      guessLetters.forEach((letter, i) => {
+        if (letter === secretLetters[i]) {
+          result[i] = 'correct';
+          secretCopy[i] = null;
+        }
+      });
+
+      guessLetters.forEach((letter, i) => {
+        if (result[i] === 'correct') return;
+
+        const index = secretCopy.indexOf(letter);
+
+        if (index !== -1) {
+          result[i] = 'present';
+          secretCopy[index] = null;
+        }
+      });
+
+      return result;
+    }
+
+    function isValidWord(word) {
+      return VALID_WORDS.includes(word.toUpperCase());
+    }
+
+    function Tile({ letter, state }) {
+      const stateClass = state ? `tile-${state}` : '';
+
+      return (
+        <div className={`tile ${stateClass}`}>
+          {letter || ''}
+        </div>
+      );
+    }
+
+    function Row({ word, evaluation }) {
+      const tiles = [];
+
+      for (let i = 0; i < 5; i++) {
+        tiles.push(
+          <Tile
+            key={i}
+            letter={word ? word[i] || '' : ''}
+            state={evaluation ? evaluation[i] : ''}
+          />
+        );
+      }
+
+      return <div className="row">{tiles}</div>;
+    }
+
+    function Board({ guesses, currentGuess, evaluations }) {
+      const rows = [];
+
+      for (let i = 0; i < 6; i++) {
+        let word = '';
+        let evaluation = null;
+
+        if (i < guesses.length) {
+          word = guesses[i];
+          evaluation = evaluations[i];
+        } else if (i === guesses.length) {
+          word = currentGuess;
+        }
+
+        rows.push(
+          <Row
+            key={i}
+            word={word}
+            evaluation={evaluation}
+          />
+        );
+      }
+
+      return <div className="board">{rows}</div>;
+    }
+
+    function Keyboard({ onKeyPress }) {
+      const rows = [
+        ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+        ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+        ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '⌫']
+      ];
+
+      return (
+        <div className="keyboard">
+          {rows.map((row, i) => (
+            <div key={i} className="keyboard-row">
+              {row.map(key => (
+                <button
+                  key={key}
+                  className={`key ${key === 'ENTER' || key === '⌫' ? 'key-wide' : ''}`}
+                  onClick={() => onKeyPress(key)}
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    function App() {
+
+      const [guesses, setGuesses] = useState([]);
+      const [currentGuess, setCurrentGuess] = useState('');
+      const [evaluations, setEvaluations] = useState([]);
+      const [gameStatus, setGameStatus] = useState('playing');
+      const [message, setMessage] = useState('');
+
+      function handleKeyPress(key) {
+
+        if (gameStatus !== 'playing') return;
+
+        if (key === '⌫') {
+
+          setCurrentGuess(prev => prev.slice(0, -1));
+          setMessage('');
+
+        } else if (key === 'ENTER') {
+
+          if (currentGuess.length === 5) {
+            submitGuess();
+          } else {
+            setMessage('A palavra deve ter 5 letras!');
+          }
+
+        } else if (currentGuess.length < 5) {
+
+          setCurrentGuess(prev => prev + key);
+          setMessage('');
+        }
+      }
+
+      function submitGuess() {
+
+        const upperGuess = currentGuess.toUpperCase();
+
+        if (!isValidWord(upperGuess)) {
+          setMessage('Palavra não reconhecida!');
+          return;
+        }
+
+        const evaluation = checkGuess(upperGuess, SECRET_WORD);
+
+        const newGuesses = [...guesses, upperGuess];
+        const newEvaluations = [...evaluations, evaluation];
+
+        setGuesses(newGuesses);
+        setEvaluations(newEvaluations);
+        setCurrentGuess('');
+        setMessage('');
+
+        if (upperGuess === SECRET_WORD) {
+
+          setGameStatus('won');
+          setMessage('🎉 Parabéns! Você acertou!');
+
+        } else if (newGuesses.length === 6) {
+
+          setGameStatus('lost');
+          setMessage(`😔 Fim de jogo! A palavra era: ${SECRET_WORD}`);
+        }
+      }
+
+      function resetGame() {
+        setGuesses([]);
+        setCurrentGuess('');
+        setEvaluations([]);
+        setGameStatus('playing');
+        setMessage('');
+      }
+
+      useEffect(() => {
+
+        function handleKeyDown(e) {
+
+          if (e.key === 'Enter') {
+
+            e.preventDefault();
+            handleKeyPress('ENTER');
+
+          } else if (e.key === 'Backspace') {
+
+            e.preventDefault();
+            handleKeyPress('⌫');
+
+          } else if (/^[a-zA-Z]$/.test(e.key)) {
+
+            handleKeyPress(e.key.toUpperCase());
+          }
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+          window.removeEventListener('keydown', handleKeyDown);
+        };
+
+      }, [currentGuess, gameStatus, guesses, evaluations]);
+
+      return (
+        <div className="app">
+
+          <h1>GuessWord</h1>
+
+          <p className="subtitle">
+            Adivinhe a palavra secreta em 6 tentativas
+          </p>
+
+          {message && (
+            <div className={`message ${gameStatus !== 'playing' ? 'message-final' : ''}`}>
+              {message}
+            </div>
+          )}
+
+          <Board
+            guesses={guesses}
+            currentGuess={currentGuess}
+            evaluations={evaluations}
+          />
+
+          <Keyboard onKeyPress={handleKeyPress} />
+
+          {gameStatus !== 'playing' && (
+            <button
+              className="reset-btn"
+              onClick={resetGame}
+            >
+              Jogar Novamente
+            </button>
+          )}
+
+          <div className="instructions">
+            <p>🟩 Verde = Letra correta na posição certa</p>
+            <p>🟨 Amarelo = Letra existe mas em posição errada</p>
+            <p>⬛ Cinza = Letra não existe na palavra</p>
+          </div>
+
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(
+      document.getElementById('root')
+    );
+
+    root.render(<App />);
+
+  </script>
+
+</body>
+</html>
