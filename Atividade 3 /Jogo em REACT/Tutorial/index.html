@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GuessWord – Tutorial React</title>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-secondary: #111827;
+      --card: #161f36;
+      --border: #2b3553;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --blue: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --red: #f85149;
+      --code-bg: #0f172a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: #0f172a;
+      border-right: 1px solid var(--border);
+      padding: 32px 24px;
+    }
+
+    aside h2 {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .nav-group {
+      margin-bottom: 28px;
+    }
+
+    .nav-group-title {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    aside a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: 0.2s;
+      font-size: 0.95rem;
+    }
+
+    aside a:hover {
+      background: rgba(88, 166, 255, 0.12);
+      color: var(--blue);
+    }
+
+    main {
+      max-width: 1000px;
+      padding: 60px 80px;
+    }
+
+    .hero {
+      margin-bottom: 60px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(88, 166, 255, 0.12);
+      color: var(--blue);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin: 40px 0 16px;
+    }
+
+    p {
+      margin-bottom: 18px;
+      color: #d1d5db;
+    }
+
+    ul, ol {
+      padding-left: 24px;
+      margin-bottom: 24px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .note {
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      padding: 20px;
+      border-radius: 14px;
+      margin: 24px 0;
+    }
+
+    .note strong {
+      color: var(--blue);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin: 24px 0;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 22px;
+      border-radius: 16px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+
+    code {
+      font-family: "Fira Code", monospace;
+      font-size: 0.95rem;
+      color: #dbeafe;
+    }
+
+    .inline-code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: #18233f;
+      text-align: left;
+      padding: 16px;
+      color: white;
+    }
+
+    td {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      color: #d1d5db;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .step-number {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .success {
+      border-left: 4px solid var(--green);
+      padding-left: 18px;
+    }
+
+    .warning {
+      border-left: 4px solid var(--yellow);
+      padding-left: 18px;
+    }
+
+    .danger {
+      border-left: 4px solid var(--red);
+      padding-left: 18px;
+    }
+
+    .footer {
+      margin-top: 100px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      main {
+        padding: 40px 24px;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <aside>
+    <h2>GuessWord Tutorial</h2>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Introdução</div>
+      <a href="#intro">Visão Geral</a>
+      <a href="#build">O que você vai construir</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Preparação</div>
+      <a href="#setup">Preparando o ambiente</a>
+      <a href="#initial-code">Código inicial</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Fundamentos</div>
+      <a href="#components">Componentes</a>
+      <a href="#props">Props</a>
+      <a href="#state">State</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Jogo</div>
+      <a href="#board">Construindo o tabuleiro</a>
+      <a href="#interactive">Interatividade</a>
+      <a href="#immutability">Imutabilidade</a>
+      <a href="#history">Histórico</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Finalização</div>
+      <a href="#final-code">Código completo</a>
+      <a href="#summary">Resumo</a>
+    </div>
+  </aside>
+
+  <main>
+
+    <section class="hero" id="intro">
+      <div class="hero-badge">React Tutorial</div>
+
+      <h1>
+        GuessWord – Um jogo de adivinhação de palavras com React
+      </h1>
+
+      <p>
+        Neste tutorial você construirá um pequeno jogo de adivinhação
+        de palavras enquanto aprende os fundamentos do React:
+        componentes, props, estado, renderização e histórico.
+      </p>
+    </section>
+
+    <section id="build">
+      <h2>O que você está construindo?</h2>
+
+      <p>
+        Você criará um jogo interativo inspirado em jogos como Wordle,
+        onde o jogador tenta descobrir uma palavra secreta em até
+        6 tentativas.
+      </p>
+
+      <div class="card">
+        <p class="success">
+          O objetivo deste tutorial é aprender React na prática
+          enquanto constrói algo real.
+        </p>
+      </div>
+
+      <pre><code>function Tile({ letter, state }) {
+  const stateClass = state ? `tile-${state}` : '';
+
+  return (
+    &lt;div className={`tile ${stateClass}`}&gt;
+      {letter || ''}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <div class="note">
+        <strong>Nota:</strong>
+        Se o código ainda parece estranho, não se preocupe.
+        O tutorial explicará cada conceito passo a passo.
+      </div>
+    </section>
+
+    <section id="setup">
+      <h2>Preparação para o tutorial</h2>
+
+      <p>
+        Antes de começar, abra um ambiente React como CodeSandbox
+        e crie um novo projeto.
+      </p>
+
+      <div class="step">
+        <div class="step-number">1</div>
+
+        <div class="step-content">
+          <h3>Abra o editor</h3>
+
+          <p>
+            Crie um novo projeto React no CodeSandbox
+            ou em seu ambiente local.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+
+        <div class="step-content">
+          <h3>Substitua o conteúdo inicial</h3>
+
+          <p>
+            Vamos começar com um componente simples chamado
+            <span class="inline-code">Tile</span>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="initial-code">
+      <h2>Código inicial</h2>
+
+      <pre><code>export default function Tile() {
+  return &lt;button className="tile"&gt;A&lt;/button&gt;;
+}</code></pre>
+
+      <p>
+        Esse código cria um componente React chamado
+        <span class="inline-code">Tile</span>.
+      </p>
+
+      <div class="card">
+        <h3>O que é um componente?</h3>
+
+        <p>
+          Componentes são blocos reutilizáveis que representam
+          partes da interface do usuário.
+        </p>
+      </div>
+    </section>
+
+    <section id="components">
+      <h2>Construindo o tabuleiro</h2>
+
+      <p>
+        Um único tile não é suficiente. Precisamos criar uma grade
+        de 6 linhas por 5 colunas.
+      </p>
+
+      <pre><code>export default function Board() {
+  return (
+    &lt;&gt;
+      &lt;div className="row"&gt;
+        &lt;button className="tile"&gt;1&lt;/button&gt;
+        &lt;button className="tile"&gt;2&lt;/button&gt;
+        &lt;button className="tile"&gt;3&lt;/button&gt;
+        &lt;button className="tile"&gt;4&lt;/button&gt;
+        &lt;button className="tile"&gt;5&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+      <div class="note">
+        <strong>Fragmentos:</strong>
+        React exige que múltiplos elementos sejam envolvidos
+        por um elemento pai.
+      </div>
+    </section>
+
+    <section id="props">
+      <h2>Passando dados com props</h2>
+
+      <p>
+        Agora vamos transformar o botão em um componente reutilizável.
+      </p>
+
+      <pre><code>function Tile({ value }) {
+  return (
+    &lt;button className="tile"&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+      <p>
+        O valor dentro de <span class="inline-code">{value}</span>
+        vem das props.
+      </p>
+
+      <pre><code>&lt;Tile value="A" /&gt;
+&lt;Tile value="B" /&gt;
+&lt;Tile value="C" /&gt;</code></pre>
+
+      <div class="card">
+        <h3>Props</h3>
+
+        <p>
+          Props são parâmetros que permitem passar dados
+          entre componentes.
+        </p>
+      </div>
+    </section>
+
+    <section id="state">
+      <h2>Tornando componentes interativos</h2>
+
+      <p>
+        Componentes React podem “lembrar” informações usando state.
+      </p>
+
+      <pre><code>import { useState } from 'react';
+
+function Tile() {
+  const [value, setValue] = useState(null);
+
+  function handleClick() {
+    setValue('X');
+  }
+
+  return (
+    &lt;button onClick={handleClick}&gt;
+      {value}
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+      <div class="card">
+        <h3>Como useState funciona?</h3>
+
+        <ul>
+          <li><strong>value</strong> → valor atual</li>
+          <li><strong>setValue</strong> → atualiza o valor</li>
+          <li>Ao atualizar, o React renderiza novamente</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="interactive">
+      <h2>Elevando o estado</h2>
+
+      <p>
+        Cada Tile possui seu próprio estado, mas o Board precisa
+        conhecer o estado de todos os tiles.
+      </p>
+
+      <p>
+        A solução é mover o estado para o componente pai.
+      </p>
+
+      <pre><code>export default function Board() {
+  const [tiles, setTiles] = useState(
+    Array(5).fill(null)
+  );
+
+  function handleClick(i) {
+    const nextTiles = tiles.slice();
+    nextTiles[i] = 'X';
+    setTiles(nextTiles);
+  }
+}</code></pre>
+
+      <div class="note">
+        <strong>Elevação de estado:</strong>
+        mover o state para um componente pai é um padrão comum no React.
+      </div>
+    </section>
+
+    <section id="immutability">
+      <h2>Por que imutabilidade importa?</h2>
+
+      <p>
+        Em vez de modificar arrays diretamente, criamos cópias.
+      </p>
+
+      <pre><code>const nextTiles = tiles.slice();</code></pre>
+
+      <p>
+        Isso é chamado de imutabilidade.
+      </p>
+
+      <div class="card warning">
+        <h3>Benefícios</h3>
+
+        <ul>
+          <li>Facilita debug</li>
+          <li>Permite histórico</li>
+          <li>Evita efeitos colaterais</li>
+          <li>Melhora performance do React</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="history">
+      <h2>Adicionando histórico</h2>
+
+      <p>
+        Como estamos tratando o estado como imutável,
+        podemos armazenar versões anteriores do jogo.
+      </p>
+
+      <pre><code>const [history, setHistory] = useState([
+  {
+    guesses: [],
+    evaluations: [],
+    gameStatus: 'playing'
+  }
+]);</code></pre>
+
+      <h3>Viagem no tempo</h3>
+
+      <pre><code>function jumpTo(move) {
+  setCurrentMove(move);
+}</code></pre>
+
+      <p>
+        Isso permite voltar para qualquer jogada anterior.
+      </p>
+
+      <div class="card success">
+        <h3>Resultado</h3>
+
+        <p>
+          Você acabou de implementar uma das funcionalidades
+          mais famosas do React: time travel.
+        </p>
+      </div>
+    </section>
+
+    <section id="final-code">
+      <h2>Código completo final</h2>
+
+      <p>
+        O projeto final possui:
+      </p>
+
+      <ul>
+        <li>Tabuleiro 6x5</li>
+        <li>Teclado virtual</li>
+        <li>Validação de palavras</li>
+        <li>Histórico de jogadas</li>
+        <li>Viagem no tempo</li>
+        <li>Status do jogo</li>
+      </ul>
+
+      <pre><code>function checkGuess(guess, secretWord) {
+  const result = Array(5).fill('absent');
+
+  // Marca letras corretas
+  // Marca letras presentes
+  // Retorna avaliação
+
+  return result;
+}</code></pre>
+
+      <div class="note">
+        <strong>Dica:</strong>
+        O código completo pode ser dividido em:
+        Tile, Row, Board, Keyboard e Game.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Resumo dos conceitos aprendidos</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Conceito</th>
+            <th>Onde foi usado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Componentes</td>
+            <td>Tile, Row, Board, Keyboard, Game</td>
+          </tr>
+
+          <tr>
+            <td>Props</td>
+            <td>value, guesses, evaluations, onKeyPress</td>
+          </tr>
+
+          <tr>
+            <td>useState</td>
+            <td>currentGuess, history, currentMove</td>
+          </tr>
+
+          <tr>
+            <td>Elevação de estado</td>
+            <td>Tile → Board → Game</td>
+          </tr>
+
+          <tr>
+            <td>Imutabilidade</td>
+            <td>.slice(), spread operator</td>
+          </tr>
+
+          <tr>
+            <td>Renderização condicional</td>
+            <td>Status e teclado</td>
+          </tr>
+
+          <tr>
+            <td>Viagem no tempo</td>
+            <td>history + jumpTo()</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="footer">
+      <p>
+        Tutorial inspirado na documentação oficial do React.
+        Desenvolvido para ensinar React através da prática.
+      </p>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>
